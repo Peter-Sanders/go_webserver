@@ -16,8 +16,13 @@
         <button hx-post="/user-data" hx-target"#user-info" hx-swap"innerHTML">Get User Info</button>
       </form>
       <!-- <button hx-get="/get-info" hx-target="#user-info" hx-swap="innerHTML">Reveal Info</button> -->
+    </div> <br>
+    <p>Insert New User</p>
+    <div id="create-user">
     </div>
-    <!-- {{template "name_card" .}} -->
+    <div id="new-user">
+      <button hx-get="/new_user" hx-target"#create-user" hx-swap"outerHTML">Make New User</button>
+    </div>
   </body> 
 </html>
 {{end}}
