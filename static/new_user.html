@@ -1,8 +1,6 @@
 {{define "new_user"}}
-
-<div>
-  <p>Enter Data</p>
-  <form hx-ext="json-enc">
+  <form hx-ext="json-enc" hx-post="/create_user">
+    <p>Enter User</p>
     <label>First Name</label><br>
     <input type="text" name="FName"><br>
     <label>Last Name</label><br>
@@ -13,5 +11,4 @@
     <input type="text" name="Email"><br>
     <button hx-post"/create_user" hx-target"#create-user" hx-swap"innerHTML">Create User</button>
   </form>
-</div>
 {{end}}

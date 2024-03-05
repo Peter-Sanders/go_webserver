@@ -54,6 +54,19 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
       return c.Render(http.StatusOK, "new_user", nil)  
     })
 
+    e.GET("/name_search", func(c echo.Context) error {
+      return c.Render(http.StatusOK, "name_search", nil)
+    })
+
+    e.GET("/list_users", func(c echo.Context) error{
+      users, err := user.List()
+      if err != nil{
+        log.Print("we have no users?")
+      }
+      log.Print(users)
+      return c.Render(http.StatusOK, "list", users)
+    })
+
     e.POST("/create_user", func(c echo.Context) error {
       fname := c.FormValue("FName")
       lname := c.FormValue("LName")
@@ -78,15 +91,17 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
       return c.Render(http.StatusOK, "new_user", nil) 
     })
 
-    e.POST("/user-data", func(c echo.Context) error {
+    e.PUT("/user-data", func(c echo.Context) error {
 
       name := c.FormValue("FName")
-      log.Printf("%s", name)
+      if name =="" {
+        log.Printf("No user passed")
+        return c.Render(http.StatusOK, "no_user_passed", nil)
+      }
       user_data, err := user.Retrieve(name)
       if err != nil {
         // log.Fatal(err)
-        log.Printf("Couldn't find user %s", name)
-        return c.Render(http.StatusOK, "index", nil)
+        return c.Render(http.StatusOK, "user_not_found", nil)
       }
       res := map[string]interface{}{
         "Name": user_data.FName + " " + user_data.LName,

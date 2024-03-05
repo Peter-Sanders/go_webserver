@@ -1,6 +1,6 @@
 {{define "index"}}
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale = 1.0">
     <meta charset="UTF-8">
@@ -8,21 +8,32 @@
     <link rel="stylesheet" href="/styles/index.css"/>
   </head>
   <body>
-    <p>Get User Data</p>
-    <div id = "user-info">
-      <form hx-ext="json-enc">
-        <label>First Name:</label><br>
-        <input type="text" name="FName"><br>
-        <button hx-post="/user-data" hx-target"#user-info" hx-swap"innerHTML">Get User Info</button>
-      </form>
-      <!-- <button hx-get="/get-info" hx-target="#user-info" hx-swap="innerHTML">Reveal Info</button> -->
-    </div> <br>
-    <p>Insert New User</p>
-    <div id="create-user">
+    <div id="search_swap">
+    {{template "name_search" .}}
     </div>
-    <div id="new-user">
-      <button hx-get="/new_user" hx-target"#create-user" hx-swap"outerHTML">Make New User</button>
+
+    <div id="new_user_form">
+      {{template "new_user" .}}
     </div>
+
+    <div id="all_users"></div>
+
+    <button hx-get="/list_users" hx-target="#all_users">List All Users</button>
+    
+    <!-- <div id = "user-info"> -->
+    <!--   <form hx-ext="json-enc"> -->
+    <!--     <label>First Name:</label><br> -->
+    <!--     <input type="text" name="FName"><br> -->
+    <!--     <button hx-post="/user-data" hx-target"#user-info" hx-swap"outerHTML">Get User Info</button> -->
+    <!--   </form> -->
+    <!-- <button hx-get="/get-info" hx-target="#user-info" hx-swap="innerHTML">Reveal Info</button> --> 
+    <!-- </div> <br> -->
+    <!-- <p>Insert New User</p> -->
+    <!-- <div id="create-user"> -->
+    <!-- </div> -->
+    <!-- <div id="new-user"> -->
+    <!--   <button hx-get="/new_user" hx-target"#create-user" hx-swap"outerHTML">Make New User</button> -->
+    <!-- </div> -->
   </body> 
 </html>
 {{end}}

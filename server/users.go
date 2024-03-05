@@ -59,14 +59,37 @@ func(c *Users) Insert(user api.UserData) (int, error) {
 
 func (c *Users) Retrieve(name string) (api.UserData, error){  
   log.Printf("Getting %s", name)
-  row := c.db.QueryRow("select * from users where FName = ?", name)
+  get_by_name := get_sql("get_user_by_name")
+  row := c.db.QueryRow(get_by_name, name)
   user := api.UserData{}
   var err error
   if err = row.Scan(&user.ID, &user.FName, &user.LName, &user.Phone, &user.Email, &user.Time); err == sql.ErrNoRows {
-    log.Printf("Couldn't Find User")
+    log.Printf("Couldn't Find User %s", name)
     return api.UserData{}, err
   }
   return user, err
+}
+
+
+func (c *Users) List() ([]api.UserData, error){
+  log.Printf("Getting all users")
+  list :=get_sql("get_users")
+  rows, err := c.db.Query(list)
+  if err != nil{
+    return nil, err
+  }
+  defer rows.Close()
+
+  data := []api.UserData{}
+  for rows.Next() {
+    i := api.UserData{}
+    err = rows.Scan(&i.ID, &i.FName, &i.LName, &i.Phone, &i.Email, &i.Time)
+    if err != nil {
+      return nil, err
+    }
+    data = append(data, i)
+  }
+  return data, nil
 }
 
 

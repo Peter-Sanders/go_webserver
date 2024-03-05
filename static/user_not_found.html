@@ -1,0 +1,11 @@
+{{define "user_not_found"}}
+  <form hx-put="/user-data" hx-target"#search_swap" hx-swap="outerHTML">
+    <p>Get User Data</p>
+    <div> 
+      <div class="user_not_found">User Not Found</div>
+      <label>First Name:</label><br>
+      <input name="FName">
+    </div>
+    <button>Submit</button>
+  </form>
+{{end}}
