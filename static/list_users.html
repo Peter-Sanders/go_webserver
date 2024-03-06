@@ -1,9 +1,28 @@
 {{define "list"}}
-
-<div>
-  {{ range .users}}
-    <p>{{ .FName}}</p>
-
-  {{end}}
-</div>
+    <div>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Time</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .}}
+          <tr>
+            <td>{{.FName}}</td>
+            <td>{{.LName}}</td>
+            <td>{{.Phone}}</td>
+            <td>{{.Email}}</td>
+            <td>{{.Time}}</td>
+            <td>{{.ID}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
 {{end}}

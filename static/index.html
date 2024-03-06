@@ -16,9 +16,14 @@
       {{template "new_user" .}}
     </div>
 
-    <div id="all_users"></div>
+    <div id="list_users_table">
+      {{template "list" .}}
+    </div>
 
-    <button hx-get="/list_users" hx-target="#all_users">List All Users</button>
+
+    <!-- <div id="all_users"> -->
+    <!-- <button hx-get="/list_users" hx-target="#all_users">List All Users</button> -->
+    <!-- </div> -->
     
     <!-- <div id = "user-info"> -->
     <!--   <form hx-ext="json-enc"> -->

@@ -1,14 +1,14 @@
 {{define "new_user"}}
-  <form hx-ext="json-enc" hx-post="/create_user">
+<form id="create-user-form" hx-ext="json-enc" hx-post="/create_user" hx-target="#list_users_table" hx-swap="outerHTML" hx-on::after-request=" if(event.detail.successful) this.reset()"> 
     <p>Enter User</p>
     <label>First Name</label><br>
-    <input type="text" name="FName"><br>
+    <input type="text" name="FName" id="fname"><br>
     <label>Last Name</label><br>
-    <input type="text" name="LName"><br>
+    <input type="text" name="LName" id="lname"><br>
     <label>Phone</label><br>
-    <input type="text" name="Phone"><br>
+    <input type="text" name="Phone" id="phone"><br>
     <label>Email</label><br>
-    <input type="text" name="Email"><br>
-    <button hx-post"/create_user" hx-target"#create-user" hx-swap"innerHTML">Create User</button>
+    <input type="text" name="Email" id="email"><br>
+    <button type="submit">Create User</button>
   </form>
 {{end}}

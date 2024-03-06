@@ -24,7 +24,6 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 
  func main() {
-    // var err error
     e := echo.New()
 
     var user *server.Users 
@@ -39,14 +38,12 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
     e.Renderer = renderer
     e.Static("/styles", "styles")
 
-
-    // e.Pre(middleware.RemoveTrailingSlash())
-    // e.Use(middleware.Recover())
-    // e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(
-    //   rate.Limit(20),
-    // )))
     e.GET("/", func(c echo.Context) error {
-      return c.Render(http.StatusOK, "index", nil)
+      users, err :=user.List()
+      if err != nil {
+        log.Print("no users?")
+      }
+      return c.Render(http.StatusOK, "index", users)
     })
     
     e.GET("/new_user", func(c echo.Context) error {
@@ -63,7 +60,6 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
       if err != nil{
         log.Print("we have no users?")
       }
-      log.Print(users)
       return c.Render(http.StatusOK, "list", users)
     })
 
@@ -74,21 +70,33 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
       email := c.FormValue("Email")
       time := time.Now().Format("2022-03-05 20:20:20")
 
-      var data api.UserData
-      data.FName = fname
-      data.LName = lname
-      data.Phone = phone
-      data.Email = email 
-      data.Time = time 
-      data.ID = 0
-      log.Printf("%v", data)
+      if fname == "" && lname == "" && email == "" {
+        log.Print("Not enough data passed")
+        users, err := user.List() 
+        if err != nil {
+          log.Fatal(err)
+        }
+        return c.Render(http.StatusOK, "list", users)
+      }
+      newUser := api.UserData{
+        FName: fname,
+        LName: lname,
+        Phone: phone,
+        Email: email,
+        Time: time,
+      }
 
-      id, err := user.Insert(data)
+      id, err := user.Insert(newUser)
       if err != nil {
         log.Fatal(err)
       }
-      log.Printf("Created new %v with id %d", data, id)
-      return c.Render(http.StatusOK, "new_user", nil) 
+      log.Printf("Created new %v with id %d", newUser, id)
+
+      users, err := user.List() 
+      if err != nil {
+        log.Fatal(err)
+      }
+      return c.Render(http.StatusOK, "list", users) 
     })
 
     e.PUT("/user-data", func(c echo.Context) error {
@@ -113,5 +121,5 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
     })
 
-   e.Logger.Fatal(e.Start(":8081"))
+   e.Logger.Fatal(e.Start("localhost:8081"))
  }
