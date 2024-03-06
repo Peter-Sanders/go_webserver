@@ -93,3 +93,24 @@ func (c *Users) List() ([]api.UserData, error){
 }
 
 
+func (c *Users) ListPaginated(limit int, offset int) ([]api.UserData, error) {
+  query := get_sql("get_users_paginated")
+  rows, err := c.db.Query(query, limit, offset)
+  if err != nil {
+    return nil, err
+  }
+  defer rows.Close()
+
+  data := []api.UserData{}
+  for rows.Next() {
+    i := api.UserData{}
+    err = rows.Scan(&i.ID, &i.FName, &i.LName, &i.Phone, &i.Email, &i.Time)
+    if err != nil {
+      return nil, err
+    }
+    data = append(data, i)
+  }
+  log.Print(data)
+  return data, nil
+}
+
