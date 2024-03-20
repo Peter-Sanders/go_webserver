@@ -1,5 +1,29 @@
 package user
 
-templ Show(){
-<h1>Hello its a user </h1>
+import (
+  "github.com/Peter-Sanders/go_webserver/view/layout"
+  "github.com/Peter-Sanders/go_webserver/view/components"
+  "github.com/Peter-Sanders/go_webserver/model"
+)
+
+
+func getUser(c context.Context) string {
+  user, ok:= c.Value("user").(string)
+  if !ok {
+    return ""
+  }
+  return user
+}
+
+templ Show(user model.User) {
+  <h1>
+    {getUser(ctx)}
+  </h1>
+  @layout.Base(){
+    <h1>hello {user.Email} from user page</h1>
+    @components.Input(components.InputProps{
+      Typ: "email",
+      Name: "email",
+      })
+  }
 }
