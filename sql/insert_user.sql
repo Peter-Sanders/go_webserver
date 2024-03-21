@@ -1,15 +1,15 @@
-insert into users 
+insert into users (fname, lname, phone, email, username, password) 
 with data as (
-  select 
-  NULL as id, 
+  select  
   ? as fname, 
   ? as lname, 
   ? as phone, 
   ? as email, 
-  ? as time 
+  ? as username,
+  ? as password
 )
 select 
   d.*
 from data d 
-left join users u on u.email = d.email and lower(u.fname) = lower(d.fname) and lower(u.lname) = lower(d.lname)
+left join users u on u.email = d.email and u.username = d.username 
 where u.id is null;
