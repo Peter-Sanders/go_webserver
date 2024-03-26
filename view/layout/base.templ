@@ -2,12 +2,12 @@ package layout
 
 import "github.com/Peter-Sanders/go_webserver/view/partial"
 
-templ Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs []string) {
+templ Base(title string, isError bool) {
     <!DOCTYPE html>
 	  <html lang="en" data-theme="dark">
       <head>
         <meta charset="UTF-8"/>
-        <title>My Crappy Website { title }</title>
+        <title>Peter Sanders { title }</title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="language" content="English"/>
         <script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
@@ -16,12 +16,11 @@ templ Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs
       <body hx-boost="true">
         <header>
           if !isError {
-            @partial.Navbar(username, fromProtected)
+            @partial.Navbar()
           }
         </header>
         <main class={ templ.KV("pt-40", !isError)}>
           { children... }
-          @partial.FlashMessages(errMsgs, sucMsgs)
         </main>
       </body>
   </html>

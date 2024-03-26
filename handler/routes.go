@@ -10,15 +10,15 @@ var (
 	isError       bool = false
 )
 
-func SetupRoutes(e *echo.Echo, ah *AuthHandler, nr *NotReadyHandler) {
-	e.GET("/", ah.homeHandler)
-	e.GET("/login", ah.loginHandler)
-	e.POST("/login", ah.loginHandler)
-	e.GET("/register", ah.registerHandler)
-	e.POST("/register", ah.registerHandler)
-
-	protectedGroup := e.Group("/notready", ah.authMiddleware)
-  protectedGroup.GET("/comebacklater", nr.notreadyHandler)
+func SetupRoutes(e *echo.Echo, hh *HomeHandler) {
+	e.GET("/", hh.homeHandler)
+	// e.GET("/login", ah.loginHandler)
+	// e.POST("/login", ah.loginHandler)
+	// e.GET("/register", ah.registerHandler)
+	// e.POST("/register", ah.registerHandler)
+	//
+	// protectedGroup := e.Group("/notready", ah.authMiddleware)
+ //  protectedGroup.GET("/comebacklater", nr.notreadyHandler)
 	/* ↓ Protected Routes ↓ */
 	// protectedGroup.GET("/list", th.todoListHandler)
 	// protectedGroup.GET("/create", th.createTodoHandler)

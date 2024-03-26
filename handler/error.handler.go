@@ -15,9 +15,9 @@ func CustomHTTPErrorHandler(err error, c echo.Context) {
 	if he, ok := err.(*echo.HTTPError); ok {
 		code = he.Code
 	}
-	c.Logger().Error(err)
+  c.Logger().Error(err)
 
-	var errorPage func(fp bool) templ.Component
+	var errorPage func() templ.Component
 
 	switch code {
 	case 401:
@@ -32,9 +32,7 @@ func CustomHTTPErrorHandler(err error, c echo.Context) {
 
 	renderView(c, error_page.ErrorIndex(
 		fmt.Sprintf("| Error (%d)", code),
-		"",
-		fromProtected,
 		isError,
-		errorPage(fromProtected),
+		errorPage(),
 	))
 }

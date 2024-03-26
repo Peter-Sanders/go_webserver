@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/Peter-Sanders/go_webserver/view/partial"
 
-func Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs []string) templ.Component {
+func Base(title string, isError bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -25,14 +25,14 @@ func Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs 
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\" data-theme=\"dark\"><head><meta charset=\"UTF-8\"><title>My Crappy Website ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\" data-theme=\"dark\"><head><meta charset=\"UTF-8\"><title>Peter Sanders ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/layout/base.templ`, Line: 9, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/layout/base.templ`, Line: 9, Col: 36}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -43,7 +43,7 @@ func Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs 
 			return templ_7745c5c3_Err
 		}
 		if !isError {
-			templ_7745c5c3_Err = partial.Navbar(username, fromProtected).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = partial.Navbar().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -70,10 +70,6 @@ func Base(title, username string, fromProtected, isError bool, errMsgs, sucMsgs 
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = partial.FlashMessages(errMsgs, sucMsgs).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

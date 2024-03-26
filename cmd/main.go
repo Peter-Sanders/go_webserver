@@ -4,13 +4,13 @@ import (
 	// "fmt"
   // "context"
 	"github.com/Peter-Sanders/go_webserver/handler"
-  "github.com/Peter-Sanders/go_webserver/db"
-  "github.com/Peter-Sanders/go_webserver/service"
+  // "github.com/Peter-Sanders/go_webserver/db"
+  // "github.com/Peter-Sanders/go_webserver/service"
 
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
+	// "github.com/gorilla/sessions"
+	// "github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	// "github.com/labstack/echo/v4/middleware"
 )
 
 const (
@@ -21,24 +21,21 @@ const (
 func main()  {
   app := echo.New()
 
-  app.Static("/", "assets")
-
   app.HTTPErrorHandler = handler.CustomHTTPErrorHandler
-  app.Use(middleware.Logger())
-  app.Use(session.Middleware(sessions.NewCookieStore([]byte(SECRET_KEY))))
+  // app.Use(middleware.Logger())
+  // app.Use(session.Middleware(sessions.NewCookieStore([]byte(SECRET_KEY))))
 
-  store, err := db.NewStore(DB_NAME)
-  if err != nil {
-    app.Logger.Fatalf("failed to create store: %s", err)
-  }
+  // store, err := db.NewStore(DB_NAME)
+  // if err != nil {
+  //   app.Logger.Fatalf("failed to create store: %s", err)
+  // }
 
-  us := service.NewUserServices(service.User{}, store)
-	ah := handler.NewAuthHandler(us)
-  nr := handler.NewNotReadyHandler("test")
+  // us := service.NewUserServices(service.User{}, store)
+	hh := handler.NewHomeHandler()
 
 
 	// Setting Routes
-	handler.SetupRoutes(app, ah, nr)
+	handler.SetupRoutes(app, hh)
   // userHandler := handler.UserHandler{}
   // app.Use(withUser)
   // app.GET("/user", userHandler.HandleUserShow)

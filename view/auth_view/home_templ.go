@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/Peter-Sanders/go_webserver/view/layout"
 
-func Home(fromProtected bool) templ.Component {
+func Home() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -25,17 +25,7 @@ func Home(fromProtected bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"mx-auto w-fit flex flex-col gap-8 text-center\"><h1 class=\"text-5xl font-bold\">Boy Howdy This is a Website!!</h1><p class=\"text-2xl font-thin\">I don't know what any of this is </p>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if !fromProtected {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"my-4 w-4/5 mx-auto opacity-25\"><p class=\"text-base font-thin\">You have an account?</p><footer class=\"flex gap-4 justify-center\"><a hx-swap=\"transition:true\" href=\"/login\" class=\"badge badge-primary px-6 py-4 hover:scale-[1.1] text-lg font-thin\">Log In</a> <a hx-swap=\"transition:true\" href=\"/register\" class=\"badge badge-neutral px-6 py-4 hover:scale-[1.1] text-lg font-thin\">Sign Up</a></footer>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"mx-auto w-fit flex flex-col gap-8 text-center\"><h1 class=\"text-5xl font-bold\">Welcome to my Blog</h1><p class=\"text-2xl font-thin\">I post a ton of crap here</p></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -47,11 +37,8 @@ func Home(fromProtected bool) templ.Component {
 }
 
 func HomeIndex(
-	title,
-	username string,
-	fromProtected bool,
+	title string,
 	isError bool,
-	errMsgs, sucMsgs []string,
 	cmp templ.Component,
 ) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -81,7 +68,7 @@ func HomeIndex(
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = layout.Base(title, username, fromProtected, isError, errMsgs, sucMsgs).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layout.Base(title, isError).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

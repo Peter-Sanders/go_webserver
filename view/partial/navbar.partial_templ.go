@@ -10,7 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-func Navbar(username string, fromProtected bool) templ.Component {
+func Navbar() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -23,35 +23,7 @@ func Navbar(username string, fromProtected bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar bg-primary text-primary-content fixed top-0 z-10\"><div class=\"navbar-start\"><a hx-swap=\"transition:true\" class=\"btn btn-ghost text-xl\" href=\"/\">Todo List</a></div><div class=\"navbar-end\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if fromProtected {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span class=\"font-bold text-indigo-700 mr-8\">")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(username)
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/partial/navbar.partial.templ`, Line: 12, Col: 15}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span> <a hx-swap=\"transition:true\" class=\"btn btn-ghost text-lg\" href=\"/todo/list\">Tasks</a> <button hx-swap=\"transition:true\" hx-post=\"/todo/logout\" hx-confirm=\"Are you sure you want to log out?\" hx-target=\"body\" hx-push-url=\"true\" class=\"btn btn-ghost text-lg\">Logout</button>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a hx-swap=\"transition:true\" class=\"btn btn-ghost text-lg\" href=\"/register\">Register</a> <a hx-swap=\"transition:true\" class=\"btn btn-ghost text-lg\" href=\"/login\">Login</a>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"navbar bg-primary text-primary-content fixed top-0 z-10\"><div class=\"navbar-start\"><a hx-swap=\"transition:true\" class=\"btn btn-ghost text-xl\" href=\"/\">Home</a> <a href=\"\">Fishing</a> <a href=\"\">Coding</a> <a href=\"\">Misc</a></div></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
