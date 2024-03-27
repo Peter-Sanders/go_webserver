@@ -25,7 +25,7 @@ func Home() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"mx-auto w-fit flex flex-col gap-8 text-center\"><h1 class=\"text-5xl font-bold\">Welcome to my Blog</h1><p class=\"text-2xl font-thin\">I post a ton of crap here</p></section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"mx-auto w-fit flex flex-col gap-8 text-center\"><h1 class=\"welcome-text\">Welcome to my Blog</h1><img src=\"/static/images/banner.jpg\" width=\"1000\" height=\"500\"><p class=\"text-2xl font-thin\">I post a ton of crap here</p></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

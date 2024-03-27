@@ -20,6 +20,7 @@ const (
  
 func main()  {
   app := echo.New()
+  app.Static("/static", "static")
 
   app.HTTPErrorHandler = handler.CustomHTTPErrorHandler
   // app.Use(middleware.Logger())
