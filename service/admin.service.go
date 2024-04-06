@@ -2,13 +2,12 @@ package service
 
 import (
 	"github.com/Peter-Sanders/go_webserver/db"
-  "github.com/Peter-Sanders/go_webserver/util"
-	"golang.org/x/crypto/bcrypt"
+	// "golang.org/x/crypto/bcrypt"
 )
 
-func NewUserServices(u User, uStore db.Store) *UserServices {
+func NewAdminServices(u User, uStore db.Store) *AdminServices {
 
-	return &UserServices{
+	return &AdminServices{
 		User:      u,
 		UserStore: uStore,
 	}
@@ -24,35 +23,14 @@ type User struct {
   Phone string `json:"phone"`
 }
 
-type UserServices struct {
+type AdminServices struct {
 	User      User
 	UserStore db.Store
 }
 
-func (us *UserServices) CreateUser(u User) error {
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), 8)
-	if err != nil {
-		return err
-	}
+func (us *AdminServices) Login(username string) (User, error) {
 
-  stmt := util.Get_sql("insert_user")
-
-	_, err = us.UserStore.Db.Exec(
-		stmt,
-    u.FName,
-    u.LName,
-    u.Phone,
-		u.Email,
-		u.Username,
-		string(hashedPassword),
-	)
-
-	return err
-}
-
-func (us *UserServices) CheckEmail(email string) (User, error) {
-
-	query := util.Get_sql("get_user_by_email")
+	query := db.Get_sql("admin/get_user_by_username")
 
 	stmt, err := us.UserStore.Db.Prepare(query)
 	if err != nil {
@@ -61,9 +39,9 @@ func (us *UserServices) CheckEmail(email string) (User, error) {
 
 	defer stmt.Close()
 
-	us.User.Email = email
+	us.User.Username = username
 	err = stmt.QueryRow(
-		us.User.Email,
+		us.User.Username,
 	).Scan(
 		&us.User.ID,
     &us.User.FName,

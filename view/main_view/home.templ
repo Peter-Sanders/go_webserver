@@ -1,0 +1,22 @@
+package main_view
+
+import "github.com/Peter-Sanders/go_webserver/view/layout"
+
+templ Home() {
+	<section class="mx-auto w-fit flex flex-col gap-8 text-center">
+    <img src="/static/images/banner.jpg" width="1000" height="500"/>
+		<p class="text-2xl font-thin">
+			I post a ton of crap here
+		</p>
+	</section>
+}
+
+templ HomeIndex(
+    title string,
+    isError bool,
+    cmp templ.Component,
+    ) {
+	@layout.Base(title, isError) {
+		@cmp
+	}
+}

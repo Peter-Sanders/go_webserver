@@ -1,0 +1,21 @@
+package admin_view
+
+import "github.com/Peter-Sanders/go_webserver/view/layout"
+
+templ CreateContent() {
+  <section class="mx-auto w-fit flex flex-col gap-8 text-center">
+		<p class="text-2xl font-thin">
+			Here's where we'll create blog posts
+		</p>
+	</section>
+	}
+
+templ CreateContentIndex(
+    title string,
+    isError bool,
+    cmp templ.Component,
+    ) {
+	@layout.Base(title, isError) {
+		@cmp
+	}
+}

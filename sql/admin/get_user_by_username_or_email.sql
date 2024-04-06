@@ -6,5 +6,5 @@ SELECT
   email, 
   password, 
   username 
-FROM users
-WHERE email = ?;
+FROM user
+WHERE email = ? or username = ?;

@@ -10,21 +10,15 @@ var (
 	isError       bool = false
 )
 
-func SetupRoutes(e *echo.Echo, hh *HomeHandler) {
+func SetupRoutes(e *echo.Echo, hh *HomeHandler, fh *FishingHandler, ch *CodingHandler, mh *MiscHandler, ah *AdminHandler, conh * ContentHandler) {
 	e.GET("/", hh.homeHandler)
-	// e.GET("/login", ah.loginHandler)
-	// e.POST("/login", ah.loginHandler)
-	// e.GET("/register", ah.registerHandler)
-	// e.POST("/register", ah.registerHandler)
-	//
-	// protectedGroup := e.Group("/notready", ah.authMiddleware)
- //  protectedGroup.GET("/comebacklater", nr.notreadyHandler)
-	/* ↓ Protected Routes ↓ */
-	// protectedGroup.GET("/list", th.todoListHandler)
-	// protectedGroup.GET("/create", th.createTodoHandler)
-	// protectedGroup.POST("/create", th.createTodoHandler)
-	// protectedGroup.GET("/edit/:id", th.updateTodoHandler)
-	// protectedGroup.POST("/edit/:id", th.updateTodoHandler)
-	// protectedGroup.DELETE("/delete/:id", th.deleteTodoHandler)
-	// protectedGroup.POST("/logout", th.logoutHandler)
+  e.GET("/home", hh.homeHandler)
+  e.GET("/fishing",fh.fishingHandler)
+  e.GET("/coding",ch.codingHandler)
+  e.GET("/misc", mh.miscHandler)
+  e.GET("login", ah.loginHandler)
+  e.POST("login", ah.loginHandler)
+
+  protectedGroup := e.Group("/admin", ah.adminMiddleware)
+  protectedGroup.GET("/create", conh.createContentHandler)
 }

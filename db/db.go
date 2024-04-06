@@ -4,8 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-
-  util "github.com/Peter-Sanders/go_webserver/util"
+  "os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -18,10 +17,6 @@ type Store struct {
 func NewStore(dbName string) (Store, error) {
 	Db, err := getConnection(dbName)
 	if err != nil {
-		return Store{}, err
-	}
-
-	if err := createMigrations(Db); err != nil {
 		return Store{}, err
 	}
 
@@ -43,13 +38,12 @@ func getConnection(dbName string) (*sql.DB, error) {
 }
 
 
-func createMigrations(db *sql.DB) error {
-  stmt := util.Get_sql("create_users")
-
-	_, err := db.Exec(stmt)
-	if err != nil {
-		return err
-	}
-
-	return nil
+func Get_sql(file string) (string){
+  b, err := os.ReadFile("sql/" + file + ".sql")
+  if err != nil {
+    return " "
+  }
+  str := string(b)
+  return str
 }
+

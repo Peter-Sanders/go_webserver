@@ -3,12 +3,11 @@ package partial
 templ Navbar() {
 	<nav >
 		<div class="topnav">
-			<a hx-swap="transition:true" class="active" href="/">
-				Home
-			</a>
-      <a href="">Fishing</a>
-      <a href="">Coding</a>
-      <a href="">Misc</a>
+			<a hx-swap="transition:true" href="/home">Home</a>
+      <a hx-swap="transition:true" href="/fishing">Fishing</a>
+      <a hx-swap="transition:true" href="/coding">Coding</a>
+      <a hx-swap="transition:true" href="/misc">Misc</a>
+      <a hx-swap="transition:true" href="/login">Admin</a>
 		</div>
 		</nav>
 }
